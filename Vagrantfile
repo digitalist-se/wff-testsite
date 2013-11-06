@@ -20,7 +20,7 @@ Vagrant.configure("2")  do |config|
     # Provisioning settings.
      config.vm.provision :puppet do |puppet|
        puppet.facter = {
-        'drupal_root' => '/srv/www/seapilot/web'
+        'drupal_root' => '/srv/www/wff-testsite/web'
        }
        puppet.manifests_path = "./"
        puppet.manifest_file = "manifests/manifest.pp"
