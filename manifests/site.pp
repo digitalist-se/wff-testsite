@@ -1,7 +1,10 @@
 class { 'systools': }
-class { 'apache': }
+class { 'varnish': }
+class { 'apache': 
+    port => 8081
+}
 class { 'php':
-  development => true,
+  development => true
 }
 
 class { 'drush': }
@@ -13,6 +16,6 @@ class { 'mysql':
   hostname => $fqdn
 }
 
-apache::vhost { "drupal":
-  document_root => $drupal_root
- }
+apache::vhost { "drupal": 
+    document_root => $drupal_root
+}
