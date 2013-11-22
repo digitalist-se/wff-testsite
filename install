@@ -1,0 +1,3 @@
+cd web
+drush site-install timeslots --site-name=Ledigatider
+cd ..
