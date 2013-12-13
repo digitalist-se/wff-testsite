@@ -1,19 +1,19 @@
 ---
 vagrantfile-local:
     vm:
-        box: ubuntu-precise12042-x64-vbox4210
-        box_url: 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box'
+        box: ubuntu-precise12042-x64-vbox43
+        box_url: 'http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box'
         hostname: null
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                P6aOuq2wthOY:
+                5t0YKxDlpC9C:
                     host: ''
                     guest: ''
         provider:
             virtualbox:
                 modifyvm:
-                    name: ffbox
+                    name: ff
                     natdnshostresolver1: on
                     memory: '1024'
                 setextradata:
@@ -26,11 +26,11 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            7WYI2oaLAv8F:
+            hETSTueTFM38:
                 id: vagrant-root
                 source: ./
                 target: /srv/www/ff
-                nfs: 'true'
+                nfs: 'false'
         usable_port_range: 2200..2250
     ssh:
         host: null
@@ -45,7 +45,9 @@ vagrantfile-local:
     vagrant:
         host: ':detect'
 server:
-    packages: {  }
+    packages:
+        - vim
+        - htop
     dot_files:
         -
             bash_aliases: null
@@ -55,9 +57,9 @@ apache:
         - php
         - rewrite
     vhosts:
-        3IAn5Xz3JZFq:
-            servername: ff.dev
-            docroot: /srv/www/ff
+        n8mpytc3uIsN:
+            servername: loc.ff.se
+            docroot: /srv/www/ff/web
             port: '80'
             setenv:
                 - 'APP_ENV dev'
@@ -75,7 +77,7 @@ php:
             - cli
             - intl
             - mcrypt
-        pear: {  }
+        pear: { }
         pecl:
             - pecl_http
     ini:
@@ -93,14 +95,11 @@ xdebug:
         xdebug.remote_handler: dbgp
         xdebug.remote_port: '9000'
         xdebug.idekey: netbeans-xdebug
-xhprof:
-    install: '1'
-    location: /var/www/xhprof
 mysql:
     root_password: password
     phpmyadmin: 0
     databases:
-        SUzhyPKIu7uN:
+        hZLwaXfhLWNH:
             grant:
                 - ALL
             name: ff_db1

@@ -1,7 +1,7 @@
 <VirtualHost *:80>
 
-  ServerName www.ff.se:8081
-  ServerAlias ff.se loc.ff.se
+  ServerName ff.se:80
+  ServerAlias www.ff.se loc.ff.se
 
   DocumentRoot /srv/www/ff/web
 

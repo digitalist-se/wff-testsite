@@ -1,15 +1,16 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu-precise12042-x64-vbox4210"
-  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
+  config.vm.box = "ubuntu-precise12042-x64-vbox43"
+  config.vm.box_url = "http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box"
 
   config.vm.network "private_network", ip: "192.168.56.101"
 
+  
 
-  config.vm.synced_folder "./", "/srv/www/ff", id: "vagrant-root", :nfs => true
+  config.vm.synced_folder "./", "/srv/www/ff", id: "vagrant-root", :nfs => false
 
   config.vm.usable_port_range = (2200..2250)
   config.vm.provider :virtualbox do |virtualbox|
-    virtualbox.customize ["modifyvm", :id, "--name", "ffbox"]
+    virtualbox.customize ["modifyvm", :id, "--name", "ff"]
     virtualbox.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     virtualbox.customize ["modifyvm", :id, "--memory", "1024"]
     virtualbox.customize ["setextradata", :id, "--VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
@@ -18,6 +19,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "shell/initial-setup.sh"
   config.vm.provision :shell, :path => "shell/update-puppet.sh"
   config.vm.provision :shell, :path => "shell/librarian-puppet-vagrant.sh"
+
   config.vm.provision :puppet do |puppet|
     puppet.facter = {
       "ssh_username" => "vagrant"
@@ -27,9 +29,6 @@ Vagrant.configure("2") do |config|
     puppet.options = ["--verbose", "--hiera_config /vagrant/hiera.yaml", "--parser future"]
   end
 
-
-
-
   config.ssh.username = "vagrant"
 
   config.ssh.shell = "bash -l"
@@ -38,5 +37,10 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = false
   config.ssh.forward_x11 = false
   config.vagrant.host = :detect
+
+  config.vm.provision :shell, :path => "shell-custom/user-password.sh", :args => "root password"
+  config.vm.provision :shell, :path => "shell-custom/drush.sh", :args => "7.x-5.9"
+  config.vm.provision :shell, :path => "shell-custom/vhosts.sh", :args => "/srv/www/ff/vhosts ff.se.80"
+
 end
 

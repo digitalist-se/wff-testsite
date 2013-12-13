@@ -1,0 +1,38 @@
+[apply]
+  whitespace = fix
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+  ui = true
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+[alias]
+  ci = commit
+  ca = commit -a -m
+  co = checkout
+  br = branch -a
+  branches = branch -a
+  pick = cherry-pick
+  st = status
+  a = add .
+  d = diff --cached
+  logplus = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+[merge]
+  tool = opendiff
+[core]
+  editor = nano
+  whitespace = trailing-space,space-before-tab
+[push]
+  default = upstream
